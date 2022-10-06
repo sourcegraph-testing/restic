@@ -26,7 +26,7 @@ func NewConfig() Config {
 }
 
 // ParseConfig parses the string s and extracts the REST server URL.
-func ParseConfig(s string) (interface{}, error) {
+func ParseConfig(s string) (any, error) {
 	if !strings.HasPrefix(s, "rest:") {
 		return nil, errors.New("invalid REST backend specification")
 	}

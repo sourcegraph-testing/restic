@@ -24,10 +24,10 @@ type ProgressPrinter interface {
 	Stdout() io.WriteCloser
 	Stderr() io.WriteCloser
 
-	E(msg string, args ...interface{})
-	P(msg string, args ...interface{})
-	V(msg string, args ...interface{})
-	VV(msg string, args ...interface{})
+	E(msg string, args ...any)
+	P(msg string, args ...any)
+	V(msg string, args ...any)
+	VV(msg string, args ...any)
 }
 
 type Counter struct {

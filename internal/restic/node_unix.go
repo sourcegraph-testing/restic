@@ -14,7 +14,7 @@ func lchown(name string, uid, gid int) error {
 
 type statT syscall.Stat_t
 
-func toStatT(i interface{}) (*statT, bool) {
+func toStatT(i any) (*statT, bool) {
 	s, ok := i.(*syscall.Stat_t)
 	if ok && s != nil {
 		return (*statT)(s), true

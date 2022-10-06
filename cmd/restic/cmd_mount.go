@@ -172,7 +172,7 @@ func runMount(opts MountOptions, gopts GlobalOptions, args []string) error {
 		return err
 	}
 
-	systemFuse.Debug = func(msg interface{}) {
+	systemFuse.Debug = func(msg any) {
 		debug.Log("fuse: %v", msg)
 	}
 

@@ -36,7 +36,7 @@ func TestSnapshot(t testing.TB, repo restic.Repository, path string, parent *res
 }
 
 // TestDir describes a directory structure to create for a test.
-type TestDir map[string]interface{}
+type TestDir map[string]any
 
 func (d TestDir) String() string {
 	return "<Dir>"
@@ -95,7 +95,7 @@ func TestCreateFiles(t testing.TB, target string, dir TestDir) {
 
 // TestWalkFunc is used by TestWalkFiles to traverse the dir. When an error is
 // returned, traversal stops and the surrounding test is marked as failed.
-type TestWalkFunc func(path string, item interface{}) error
+type TestWalkFunc func(path string, item any) error
 
 // TestWalkFiles runs fn for each file/directory in dir, the filename will be
 // constructed with target as the prefix. Symlinks on Windows are ignored.
@@ -134,7 +134,7 @@ func TestEnsureFiles(t testing.TB, target string, dir TestDir) {
 	pathsChecked := make(map[string]struct{})
 
 	// first, test that all items are there
-	TestWalkFiles(t, target, dir, func(path string, item interface{}) error {
+	TestWalkFiles(t, target, dir, func(path string, item any) error {
 		// ignore symlinks on Windows
 		if _, ok := item.(TestSymlink); ok && runtime.GOOS == "windows" {
 			// mark paths and parents as checked

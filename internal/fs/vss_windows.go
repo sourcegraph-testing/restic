@@ -991,8 +991,8 @@ func findVssProc(procName string) (*windows.LazyProc, error) {
 }
 
 // queryInterface is a wrapper around the windows QueryInterface api.
-func queryInterface(oleIUnknown *ole.IUnknown, guid *ole.GUID) (*interface{}, error) {
-	var ivss *interface{}
+func queryInterface(oleIUnknown *ole.IUnknown, guid *ole.GUID) (*any, error) {
+	var ivss *any
 
 	result, _, _ := syscall.Syscall(oleIUnknown.VTable().QueryInterface, 3,
 		uintptr(unsafe.Pointer(oleIUnknown)), uintptr(unsafe.Pointer(guid)),

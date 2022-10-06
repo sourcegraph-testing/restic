@@ -11,11 +11,11 @@ import (
 
 type wrappedFileInfo struct {
 	os.FileInfo
-	sys  interface{}
+	sys  any
 	mode os.FileMode
 }
 
-func (fi wrappedFileInfo) Sys() interface{} {
+func (fi wrappedFileInfo) Sys() any {
 	return fi.sys
 }
 

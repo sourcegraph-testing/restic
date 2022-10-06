@@ -18,7 +18,7 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
-type Node interface{}
+type Node any
 
 type Snapshot struct {
 	Nodes map[string]Node

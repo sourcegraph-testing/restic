@@ -13,19 +13,19 @@ import (
 // Suite implements a test suite for restic backends.
 type Suite struct {
 	// Config should be used to configure the backend.
-	Config interface{}
+	Config any
 
 	// NewConfig returns a config for a new temporary backend that will be used in tests.
-	NewConfig func() (interface{}, error)
+	NewConfig func() (any, error)
 
 	// CreateFn is a function that creates a temporary repository for the tests.
-	Create func(cfg interface{}) (restic.Backend, error)
+	Create func(cfg any) (restic.Backend, error)
 
 	// OpenFn is a function that opens a previously created temporary repository.
-	Open func(cfg interface{}) (restic.Backend, error)
+	Open func(cfg any) (restic.Backend, error)
 
 	// CleanupFn removes data created during the tests.
-	Cleanup func(cfg interface{}) error
+	Cleanup func(cfg any) error
 
 	// MinimalData instructs the tests to not use excessive data.
 	MinimalData bool

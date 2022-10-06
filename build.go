@@ -82,7 +82,7 @@ var (
 
 // die prints the message with fmt.Fprintf() to stderr and exits with an error
 // code.
-func die(message string, args ...interface{}) {
+func die(message string, args ...any) {
 	fmt.Fprintf(os.Stderr, message, args...)
 	os.Exit(1)
 }
@@ -102,7 +102,7 @@ func showUsage(output io.Writer) {
 	fmt.Fprintf(output, "         --goarm value   set GOARM for cross-compilation\n")
 }
 
-func verbosePrintf(message string, args ...interface{}) {
+func verbosePrintf(message string, args ...any) {
 	if !verbose {
 		return
 	}

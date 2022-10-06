@@ -30,7 +30,7 @@ func newB2TestSuite(t testing.TB) *test.Suite {
 		WaitForDelayedRemoval: 10 * time.Second,
 
 		// NewConfig returns a config for a new temporary backend that will be used in tests.
-		NewConfig: func() (interface{}, error) {
+		NewConfig: func() (any, error) {
 			b2cfg, err := b2.ParseConfig(os.Getenv("RESTIC_TEST_B2_REPOSITORY"))
 			if err != nil {
 				return nil, err
@@ -44,19 +44,19 @@ func newB2TestSuite(t testing.TB) *test.Suite {
 		},
 
 		// CreateFn is a function that creates a temporary repository for the tests.
-		Create: func(config interface{}) (restic.Backend, error) {
+		Create: func(config any) (restic.Backend, error) {
 			cfg := config.(b2.Config)
 			return b2.Create(context.Background(), cfg, tr)
 		},
 
 		// OpenFn is a function that opens a previously created temporary repository.
-		Open: func(config interface{}) (restic.Backend, error) {
+		Open: func(config any) (restic.Backend, error) {
 			cfg := config.(b2.Config)
 			return b2.Open(context.Background(), cfg, tr)
 		},
 
 		// CleanupFn removes data created during the tests.
-		Cleanup: func(config interface{}) error {
+		Cleanup: func(config any) error {
 			cfg := config.(b2.Config)
 			be, err := b2.Open(context.Background(), cfg, tr)
 			if err != nil {

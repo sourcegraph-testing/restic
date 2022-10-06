@@ -65,7 +65,7 @@ func init() {
 	cmdDebugExamine.Flags().BoolVar(&repairByte, "repair-byte", false, "try to repair broken blobs by trying bytes")
 }
 
-func prettyPrintJSON(wr io.Writer, item interface{}) error {
+func prettyPrintJSON(wr io.Writer, item any) error {
 	buf, err := json.MarshalIndent(item, "", "  ")
 	if err != nil {
 		return err

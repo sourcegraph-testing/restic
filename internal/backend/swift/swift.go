@@ -265,7 +265,7 @@ func (be *beSwift) List(ctx context.Context, t restic.FileType, fn func(restic.F
 	prefix += "/"
 
 	err := be.conn.ObjectsWalk(ctx, be.container, &swift.ObjectsOpts{Prefix: prefix},
-		func(ctx context.Context, opts *swift.ObjectsOpts) (interface{}, error) {
+		func(ctx context.Context, opts *swift.ObjectsOpts) (any, error) {
 			be.sem.GetToken()
 			newObjects, err := be.conn.Objects(ctx, be.container, opts)
 			be.sem.ReleaseToken()

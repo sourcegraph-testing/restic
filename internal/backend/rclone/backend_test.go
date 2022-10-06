@@ -17,7 +17,7 @@ func newTestSuite(t testing.TB) *test.Suite {
 
 	return &test.Suite{
 		// NewConfig returns a config for a new temporary backend that will be used in tests.
-		NewConfig: func() (interface{}, error) {
+		NewConfig: func() (any, error) {
 			t.Logf("use backend at %v", dir)
 			cfg := rclone.NewConfig()
 			cfg.Remote = dir
@@ -25,7 +25,7 @@ func newTestSuite(t testing.TB) *test.Suite {
 		},
 
 		// CreateFn is a function that creates a temporary repository for the tests.
-		Create: func(config interface{}) (restic.Backend, error) {
+		Create: func(config any) (restic.Backend, error) {
 			t.Logf("Create()")
 			cfg := config.(rclone.Config)
 			be, err := rclone.Create(context.TODO(), cfg)
@@ -38,14 +38,14 @@ func newTestSuite(t testing.TB) *test.Suite {
 		},
 
 		// OpenFn is a function that opens a previously created temporary repository.
-		Open: func(config interface{}) (restic.Backend, error) {
+		Open: func(config any) (restic.Backend, error) {
 			t.Logf("Open()")
 			cfg := config.(rclone.Config)
 			return rclone.Open(cfg, nil)
 		},
 
 		// CleanupFn removes data created during the tests.
-		Cleanup: func(config interface{}) error {
+		Cleanup: func(config any) error {
 			t.Logf("cleanup dir %v", dir)
 			cleanup()
 			return nil

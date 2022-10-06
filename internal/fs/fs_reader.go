@@ -319,6 +319,6 @@ func (fi fakeFileInfo) IsDir() bool {
 	return fi.mode&os.ModeDir > 0
 }
 
-func (fi fakeFileInfo) Sys() interface{} {
+func (fi fakeFileInfo) Sys() any {
 	return nil
 }

@@ -36,7 +36,7 @@ func init() {
 
 type fakeTestingTB struct{}
 
-func (fakeTestingTB) Logf(msg string, args ...interface{}) {
+func (fakeTestingTB) Logf(msg string, args ...any) {
 	fmt.Fprintf(os.Stderr, msg, args...)
 }
 

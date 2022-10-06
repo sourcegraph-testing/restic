@@ -50,7 +50,7 @@ func NewConfig() Config {
 }
 
 // ParseConfig parses the string s and extract swift's container name and prefix.
-func ParseConfig(s string) (interface{}, error) {
+func ParseConfig(s string) (any, error) {
 	data := strings.SplitN(s, ":", 3)
 	if len(data) != 3 {
 		return nil, errors.New("invalid URL, expected: swift:container-name:/[prefix]")
@@ -78,7 +78,7 @@ func ParseConfig(s string) (interface{}, error) {
 }
 
 // ApplyEnvironment saves values from the environment to the config.
-func ApplyEnvironment(prefix string, cfg interface{}) error {
+func ApplyEnvironment(prefix string, cfg any) error {
 	c := cfg.(*Config)
 	for _, val := range []struct {
 		s   *string

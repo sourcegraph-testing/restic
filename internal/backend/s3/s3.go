@@ -196,7 +196,7 @@ func (fi *fileInfo) Size() int64        { return fi.size }    // length in bytes
 func (fi *fileInfo) Mode() os.FileMode  { return fi.mode }    // file mode bits
 func (fi *fileInfo) ModTime() time.Time { return fi.modTime } // modification time
 func (fi *fileInfo) IsDir() bool        { return fi.isDir }   // abbreviation for Mode().IsDir()
-func (fi *fileInfo) Sys() interface{}   { return nil }        // underlying data source (can return nil)
+func (fi *fileInfo) Sys() any           { return nil }        // underlying data source (can return nil)
 
 // ReadDir returns the entries for a directory.
 func (be *Backend) ReadDir(ctx context.Context, dir string) (list []os.FileInfo, err error) {

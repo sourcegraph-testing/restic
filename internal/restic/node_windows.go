@@ -38,7 +38,7 @@ func Setxattr(path, name string, data []byte) error {
 
 type statT syscall.Win32FileAttributeData
 
-func toStatT(i interface{}) (*statT, bool) {
+func toStatT(i any) (*statT, bool) {
 	s, ok := i.(*syscall.Win32FileAttributeData)
 	if ok && s != nil {
 		return (*statT)(s), true

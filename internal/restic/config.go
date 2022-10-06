@@ -27,7 +27,7 @@ const StableRepoVersion = 2
 
 // JSONUnpackedLoader loads unpacked JSON.
 type JSONUnpackedLoader interface {
-	LoadJSONUnpacked(context.Context, FileType, ID, interface{}) error
+	LoadJSONUnpacked(context.Context, FileType, ID, any) error
 }
 
 // CreateConfig creates a config file with a randomly selected polynomial and

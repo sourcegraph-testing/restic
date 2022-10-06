@@ -23,7 +23,7 @@ var testKDFParams = crypto.Params{
 }
 
 type logger interface {
-	Logf(format string, args ...interface{})
+	Logf(format string, args ...any)
 }
 
 // TestUseLowSecurityKDFParameters configures low-security KDF parameters for testing.

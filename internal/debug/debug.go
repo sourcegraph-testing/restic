@@ -162,7 +162,7 @@ func checkFilter(filter map[string]bool, key string) bool {
 }
 
 // Log prints a message to the debug log (if debug is enabled).
-func Log(f string, args ...interface{}) {
+func Log(f string, args ...any) {
 	if !opts.isEnabled {
 		return
 	}

@@ -33,7 +33,7 @@ var sftpServer = findSFTPServerBinary()
 func newTestSuite(t testing.TB) *test.Suite {
 	return &test.Suite{
 		// NewConfig returns a config for a new temporary backend that will be used in tests.
-		NewConfig: func() (interface{}, error) {
+		NewConfig: func() (any, error) {
 			dir, err := ioutil.TempDir(rtest.TestTempDir, "restic-test-sftp-")
 			if err != nil {
 				t.Fatal(err)
@@ -50,19 +50,19 @@ func newTestSuite(t testing.TB) *test.Suite {
 		},
 
 		// CreateFn is a function that creates a temporary repository for the tests.
-		Create: func(config interface{}) (restic.Backend, error) {
+		Create: func(config any) (restic.Backend, error) {
 			cfg := config.(sftp.Config)
 			return sftp.Create(context.TODO(), cfg)
 		},
 
 		// OpenFn is a function that opens a previously created temporary repository.
-		Open: func(config interface{}) (restic.Backend, error) {
+		Open: func(config any) (restic.Backend, error) {
 			cfg := config.(sftp.Config)
 			return sftp.Open(context.TODO(), cfg)
 		},
 
 		// CleanupFn removes data created during the tests.
-		Cleanup: func(config interface{}) error {
+		Cleanup: func(config any) error {
 			cfg := config.(sftp.Config)
 			if !rtest.TestCleanupTempDirs {
 				t.Logf("leaving test backend dir at %v", cfg.Path)
