@@ -13,7 +13,7 @@ import (
 type ErrorHandler func(item string, err error) error
 
 // MessageHandler is used to report errors/messages via callbacks.
-type MessageHandler func(msg string, args ...interface{})
+type MessageHandler func(msg string, args ...any)
 
 // LocalVss is a wrapper around the local file system which uses windows volume
 // shadow copy service (VSS) in a transparent way.

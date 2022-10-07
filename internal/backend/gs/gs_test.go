@@ -26,7 +26,7 @@ func newGSTestSuite(t testing.TB) *test.Suite {
 		MinimalData: true,
 
 		// NewConfig returns a config for a new temporary backend that will be used in tests.
-		NewConfig: func() (interface{}, error) {
+		NewConfig: func() (any, error) {
 			gscfg, err := gs.ParseConfig(os.Getenv("RESTIC_TEST_GS_REPOSITORY"))
 			if err != nil {
 				return nil, err
@@ -39,7 +39,7 @@ func newGSTestSuite(t testing.TB) *test.Suite {
 		},
 
 		// CreateFn is a function that creates a temporary repository for the tests.
-		Create: func(config interface{}) (restic.Backend, error) {
+		Create: func(config any) (restic.Backend, error) {
 			cfg := config.(gs.Config)
 
 			be, err := gs.Create(cfg, tr)
@@ -60,13 +60,13 @@ func newGSTestSuite(t testing.TB) *test.Suite {
 		},
 
 		// OpenFn is a function that opens a previously created temporary repository.
-		Open: func(config interface{}) (restic.Backend, error) {
+		Open: func(config any) (restic.Backend, error) {
 			cfg := config.(gs.Config)
 			return gs.Open(cfg, tr)
 		},
 
 		// CleanupFn removes data created during the tests.
-		Cleanup: func(config interface{}) error {
+		Cleanup: func(config any) error {
 			cfg := config.(gs.Config)
 
 			be, err := gs.Open(cfg, tr)

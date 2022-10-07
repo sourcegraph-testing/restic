@@ -11,7 +11,7 @@ import (
 )
 
 // TestTree is used to construct a list of trees for testing the walker.
-type TestTree map[string]interface{}
+type TestTree map[string]any
 
 // TestNode is used to test the walker.
 type TestFile struct{}

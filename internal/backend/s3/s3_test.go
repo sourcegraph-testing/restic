@@ -129,7 +129,7 @@ func newMinioTestSuite(ctx context.Context, t testing.TB) *test.Suite {
 
 	return &test.Suite{
 		// NewConfig returns a config for a new temporary backend that will be used in tests.
-		NewConfig: func() (interface{}, error) {
+		NewConfig: func() (any, error) {
 			cfg := MinioTestConfig{}
 
 			cfg.tempdir, cfg.removeTempdir = rtest.TempDir(t)
@@ -147,7 +147,7 @@ func newMinioTestSuite(ctx context.Context, t testing.TB) *test.Suite {
 		},
 
 		// CreateFn is a function that creates a temporary repository for the tests.
-		Create: func(config interface{}) (restic.Backend, error) {
+		Create: func(config any) (restic.Backend, error) {
 			cfg := config.(MinioTestConfig)
 
 			be, err := createS3(t, cfg, tr)
@@ -168,13 +168,13 @@ func newMinioTestSuite(ctx context.Context, t testing.TB) *test.Suite {
 		},
 
 		// OpenFn is a function that opens a previously created temporary repository.
-		Open: func(config interface{}) (restic.Backend, error) {
+		Open: func(config any) (restic.Backend, error) {
 			cfg := config.(MinioTestConfig)
 			return s3.Open(ctx, cfg.Config, tr)
 		},
 
 		// CleanupFn removes data created during the tests.
-		Cleanup: func(config interface{}) error {
+		Cleanup: func(config any) error {
 			cfg := config.(MinioTestConfig)
 			if cfg.stopServer != nil {
 				cfg.stopServer()
@@ -232,7 +232,7 @@ func newS3TestSuite(t testing.TB) *test.Suite {
 		MinimalData: true,
 
 		// NewConfig returns a config for a new temporary backend that will be used in tests.
-		NewConfig: func() (interface{}, error) {
+		NewConfig: func() (any, error) {
 			s3cfg, err := s3.ParseConfig(os.Getenv("RESTIC_TEST_S3_REPOSITORY"))
 			if err != nil {
 				return nil, err
@@ -246,7 +246,7 @@ func newS3TestSuite(t testing.TB) *test.Suite {
 		},
 
 		// CreateFn is a function that creates a temporary repository for the tests.
-		Create: func(config interface{}) (restic.Backend, error) {
+		Create: func(config any) (restic.Backend, error) {
 			cfg := config.(s3.Config)
 
 			be, err := s3.Create(context.TODO(), cfg, tr)
@@ -267,13 +267,13 @@ func newS3TestSuite(t testing.TB) *test.Suite {
 		},
 
 		// OpenFn is a function that opens a previously created temporary repository.
-		Open: func(config interface{}) (restic.Backend, error) {
+		Open: func(config any) (restic.Backend, error) {
 			cfg := config.(s3.Config)
 			return s3.Open(context.TODO(), cfg, tr)
 		},
 
 		// CleanupFn removes data created during the tests.
-		Cleanup: func(config interface{}) error {
+		Cleanup: func(config any) error {
 			cfg := config.(s3.Config)
 
 			be, err := s3.Open(context.TODO(), cfg, tr)

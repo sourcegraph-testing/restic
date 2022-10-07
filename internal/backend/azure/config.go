@@ -33,7 +33,7 @@ func init() {
 
 // ParseConfig parses the string s and extracts the azure config. The
 // configuration format is azure:containerName:/[prefix].
-func ParseConfig(s string) (interface{}, error) {
+func ParseConfig(s string) (any, error) {
 	if !strings.HasPrefix(s, "azure:") {
 		return nil, errors.New("azure: invalid format")
 	}

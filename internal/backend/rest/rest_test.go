@@ -77,26 +77,26 @@ func newTestSuite(ctx context.Context, t testing.TB, url *url.URL, minimalData b
 		MinimalData: minimalData,
 
 		// NewConfig returns a config for a new temporary backend that will be used in tests.
-		NewConfig: func() (interface{}, error) {
+		NewConfig: func() (any, error) {
 			cfg := rest.NewConfig()
 			cfg.URL = url
 			return cfg, nil
 		},
 
 		// CreateFn is a function that creates a temporary repository for the tests.
-		Create: func(config interface{}) (restic.Backend, error) {
+		Create: func(config any) (restic.Backend, error) {
 			cfg := config.(rest.Config)
 			return rest.Create(context.TODO(), cfg, tr)
 		},
 
 		// OpenFn is a function that opens a previously created temporary repository.
-		Open: func(config interface{}) (restic.Backend, error) {
+		Open: func(config any) (restic.Backend, error) {
 			cfg := config.(rest.Config)
 			return rest.Open(cfg, tr)
 		},
 
 		// CleanupFn removes data created during the tests.
-		Cleanup: func(config interface{}) error {
+		Cleanup: func(config any) error {
 			return nil
 		},
 	}

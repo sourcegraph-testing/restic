@@ -18,12 +18,12 @@ type memConfig struct {
 func newTestSuite() *test.Suite {
 	return &test.Suite{
 		// NewConfig returns a config for a new temporary backend that will be used in tests.
-		NewConfig: func() (interface{}, error) {
+		NewConfig: func() (any, error) {
 			return &memConfig{}, nil
 		},
 
 		// CreateFn is a function that creates a temporary repository for the tests.
-		Create: func(cfg interface{}) (restic.Backend, error) {
+		Create: func(cfg any) (restic.Backend, error) {
 			c := cfg.(*memConfig)
 			if c.be != nil {
 				ok, err := c.be.Test(context.TODO(), restic.Handle{Type: restic.ConfigFile})
@@ -41,7 +41,7 @@ func newTestSuite() *test.Suite {
 		},
 
 		// OpenFn is a function that opens a previously created temporary repository.
-		Open: func(cfg interface{}) (restic.Backend, error) {
+		Open: func(cfg any) (restic.Backend, error) {
 			c := cfg.(*memConfig)
 			if c.be == nil {
 				c.be = mem.New()
@@ -50,7 +50,7 @@ func newTestSuite() *test.Suite {
 		},
 
 		// CleanupFn removes data created during the tests.
-		Cleanup: func(cfg interface{}) error {
+		Cleanup: func(cfg any) error {
 			// no cleanup needed
 			return nil
 		},

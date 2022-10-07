@@ -263,7 +263,7 @@ func (t *Terminal) Print(line string) {
 }
 
 // Printf uses fmt.Sprintf to write a line to the terminal.
-func (t *Terminal) Printf(msg string, args ...interface{}) {
+func (t *Terminal) Printf(msg string, args ...any) {
 	s := fmt.Sprintf(msg, args...)
 	t.Print(s)
 }
@@ -274,7 +274,7 @@ func (t *Terminal) Error(line string) {
 }
 
 // Errorf uses fmt.Sprintf to write an error line to the terminal.
-func (t *Terminal) Errorf(msg string, args ...interface{}) {
+func (t *Terminal) Errorf(msg string, args ...any) {
 	s := fmt.Sprintf(msg, args...)
 	t.Error(s)
 }

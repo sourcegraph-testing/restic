@@ -55,7 +55,7 @@ func (c *Cache) Add(id restic.ID, blob []byte) (old []byte) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
-	var key interface{} = id
+	var key any = id
 
 	if c.c.Contains(key) { // Doesn't update the recency list.
 		return
@@ -89,7 +89,7 @@ func (c *Cache) Get(id restic.ID) ([]byte, bool) {
 	return blob, ok
 }
 
-func (c *Cache) evict(key, value interface{}) {
+func (c *Cache) evict(key, value any) {
 	blob := value.([]byte)
 	debug.Log("bloblru.Cache: evict %v, %d bytes", key, cap(blob))
 	c.free += cap(blob) + overhead

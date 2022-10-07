@@ -34,7 +34,7 @@ func NewJSONProgress(term *termstatus.Terminal, verbosity uint) *JSONProgress {
 	}
 }
 
-func toJSONString(status interface{}) string {
+func toJSONString(status any) string {
 	buf := new(bytes.Buffer)
 	err := json.NewEncoder(buf).Encode(status)
 	if err != nil {
@@ -43,11 +43,11 @@ func toJSONString(status interface{}) string {
 	return buf.String()
 }
 
-func (b *JSONProgress) print(status interface{}) {
+func (b *JSONProgress) print(status any) {
 	b.term.Print(toJSONString(status))
 }
 
-func (b *JSONProgress) error(status interface{}) {
+func (b *JSONProgress) error(status any) {
 	b.term.Error(toJSONString(status))
 }
 

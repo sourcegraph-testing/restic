@@ -235,7 +235,7 @@ func clearLine(w int) string {
 }
 
 // Printf writes the message to the configured stdout stream.
-func Printf(format string, args ...interface{}) {
+func Printf(format string, args ...any) {
 	_, err := fmt.Fprintf(globalOptions.stdout, format, args...)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "unable to write to stdout: %v\n", err)
@@ -243,7 +243,7 @@ func Printf(format string, args ...interface{}) {
 }
 
 // Print writes the message to the configured stdout stream.
-func Print(args ...interface{}) {
+func Print(args ...any) {
 	_, err := fmt.Fprint(globalOptions.stdout, args...)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "unable to write to stdout: %v\n", err)
@@ -251,7 +251,7 @@ func Print(args ...interface{}) {
 }
 
 // Println writes the message to the configured stdout stream.
-func Println(args ...interface{}) {
+func Println(args ...any) {
 	_, err := fmt.Fprintln(globalOptions.stdout, args...)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "unable to write to stdout: %v\n", err)
@@ -259,21 +259,21 @@ func Println(args ...interface{}) {
 }
 
 // Verbosef calls Printf to write the message when the verbose flag is set.
-func Verbosef(format string, args ...interface{}) {
+func Verbosef(format string, args ...any) {
 	if globalOptions.verbosity >= 1 {
 		Printf(format, args...)
 	}
 }
 
 // Verboseff calls Printf to write the message when the verbosity is >= 2
-func Verboseff(format string, args ...interface{}) {
+func Verboseff(format string, args ...any) {
 	if globalOptions.verbosity >= 2 {
 		Printf(format, args...)
 	}
 }
 
 // Warnf writes the message to the configured stderr stream.
-func Warnf(format string, args ...interface{}) {
+func Warnf(format string, args ...any) {
 	_, err := fmt.Fprintf(globalOptions.stderr, format, args...)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "unable to write to stderr: %v\n", err)
@@ -282,7 +282,7 @@ func Warnf(format string, args ...interface{}) {
 
 // Exitf uses Warnf to write the message and then terminates the process with
 // the given exit code.
-func Exitf(exitcode int, format string, args ...interface{}) {
+func Exitf(exitcode int, format string, args ...any) {
 	if !(strings.HasSuffix(format, "\n")) {
 		format += "\n"
 	}
@@ -550,7 +550,7 @@ func OpenRepository(opts GlobalOptions) (*repository.Repository, error) {
 	return s, nil
 }
 
-func parseConfig(loc location.Location, opts options.Options) (interface{}, error) {
+func parseConfig(loc location.Location, opts options.Options) (any, error) {
 	// only apply options for a particular backend here
 	opts = opts.Extract(loc.Scheme)
 

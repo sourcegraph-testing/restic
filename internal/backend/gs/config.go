@@ -32,7 +32,7 @@ func init() {
 
 // ParseConfig parses the string s and extracts the gcs config. The
 // supported configuration format is gs:bucketName:/[prefix].
-func ParseConfig(s string) (interface{}, error) {
+func ParseConfig(s string) (any, error) {
 	if !strings.HasPrefix(s, "gs:") {
 		return nil, errors.New("gs: invalid format")
 	}

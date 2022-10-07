@@ -29,7 +29,7 @@ func newAzureTestSuite(t testing.TB) *test.Suite {
 		MinimalData: true,
 
 		// NewConfig returns a config for a new temporary backend that will be used in tests.
-		NewConfig: func() (interface{}, error) {
+		NewConfig: func() (any, error) {
 			azcfg, err := azure.ParseConfig(os.Getenv("RESTIC_TEST_AZURE_REPOSITORY"))
 			if err != nil {
 				return nil, err
@@ -43,7 +43,7 @@ func newAzureTestSuite(t testing.TB) *test.Suite {
 		},
 
 		// CreateFn is a function that creates a temporary repository for the tests.
-		Create: func(config interface{}) (restic.Backend, error) {
+		Create: func(config any) (restic.Backend, error) {
 			cfg := config.(azure.Config)
 
 			be, err := azure.Create(cfg, tr)
@@ -64,14 +64,14 @@ func newAzureTestSuite(t testing.TB) *test.Suite {
 		},
 
 		// OpenFn is a function that opens a previously created temporary repository.
-		Open: func(config interface{}) (restic.Backend, error) {
+		Open: func(config any) (restic.Backend, error) {
 			cfg := config.(azure.Config)
 
 			return azure.Open(cfg, tr)
 		},
 
 		// CleanupFn removes data created during the tests.
-		Cleanup: func(config interface{}) error {
+		Cleanup: func(config any) error {
 			cfg := config.(azure.Config)
 
 			be, err := azure.Open(cfg, tr)

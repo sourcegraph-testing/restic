@@ -20,12 +20,12 @@ import (
 // access and (possibly) credentials needed for access.
 type Location struct {
 	Scheme string
-	Config interface{}
+	Config any
 }
 
 type parser struct {
 	scheme        string
-	parse         func(string) (interface{}, error)
+	parse         func(string) (any, error)
 	stripPassword func(string) string
 }
 

@@ -1669,7 +1669,7 @@ func TestArchiverParent(t *testing.T) {
 			t.Logf("testfs: %v", testFS)
 
 			// check that all files have been read exactly once
-			TestWalkFiles(t, ".", test.src, func(filename string, item interface{}) error {
+			TestWalkFiles(t, ".", test.src, func(filename string, item any) error {
 				file, ok := item.(TestFile)
 				if !ok {
 					return nil
@@ -1696,7 +1696,7 @@ func TestArchiverParent(t *testing.T) {
 			}
 
 			// check that all files still been read exactly once
-			TestWalkFiles(t, ".", test.src, func(filename string, item interface{}) error {
+			TestWalkFiles(t, ".", test.src, func(filename string, item any) error {
 				file, ok := item.(TestFile)
 				if !ok {
 					return nil

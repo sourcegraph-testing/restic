@@ -650,7 +650,7 @@ func runBackup(opts BackupOptions, gopts GlobalOptions, term *termstatus.Termina
 			return progressReporter.Error(item, err)
 		}
 
-		messageHandler := func(msg string, args ...interface{}) {
+		messageHandler := func(msg string, args ...any) {
 			if !gopts.JSON {
 				progressPrinter.P(msg, args...)
 			}

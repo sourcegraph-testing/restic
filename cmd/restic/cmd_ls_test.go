@@ -85,7 +85,7 @@ func TestLsNodeJSON(t *testing.T) {
 		rtest.Equals(t, c.expect+"\n", buf.String())
 
 		// Sanity check: output must be valid JSON.
-		var v interface{}
+		var v any
 		err = json.NewDecoder(buf).Decode(&v)
 		rtest.OK(t, err)
 	}
